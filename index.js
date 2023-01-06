@@ -6,14 +6,15 @@ class City {
         this.population = population;
     }
 }
-const cities = [];
+const cities = JSON.parse(localStorage.getItem("cities") || "[]");
 function addCity(city) {
     cities.push(city);
+    localStorage.setItem("cities", JSON.stringify(cities));
 }
-function renderList(cities) {
+function renderList(cityList = cities) {
     const list = document.getElementById("list");
     list.innerHTML = "";
-    for (const city of cities) {
+    for (const city of cityList) {
         const li = document.createElement("li");
         li.textContent = `${city.cityName}, ${city.country}, ${city.population}`;
         list.appendChild(li);

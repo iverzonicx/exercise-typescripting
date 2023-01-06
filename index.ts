@@ -9,16 +9,17 @@ class City {
   }
 }
 
-const cities: City[] = [];
+const cities: City[] = JSON.parse(localStorage.getItem("cities") || "[]");
 
 function addCity(city: City) {
   cities.push(city);
+  localStorage.setItem("cities", JSON.stringify(cities));
 }
 
-function renderList(cities: City[]) {
+function renderList(cityList: City[] = cities) {
   const list = document.getElementById("list") as HTMLElement;
   list.innerHTML = "";
-  for (const city of cities) {
+  for (const city of cityList) {
     const li = document.createElement("li");
     li.textContent = `${city.cityName}, ${city.country}, ${city.population}`;
     list.appendChild(li);
